@@ -32,7 +32,9 @@ export default function Navbar(){
     }
     return(
         <div className="navbar">
-            
+            <div className="organisation">
+                {window.localStorage.getItem("organisation")}
+            </div>
             <div className="navlinks">
                 <Link to="/donate">Donate</Link>
                 <Link to="/recieve">Recieve</Link>

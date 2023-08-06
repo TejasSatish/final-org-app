@@ -1,3 +1,10 @@
+.organisation{
+    display: flex;
+    text-align: center;
+    color: black;
+    font-size: 40px;
+    font-family:'Trebuchet MS';
+}
 .navbar{
     width: 100%;
     height: 80px;
