@@ -1,6 +1,26 @@
 import { React } from "react"
-
+import { useMoralis, useWeb3ExecuteFunction } from "react-moralis"
+import { abi, hardhatContractAddress, sepoliaContractAddress } from "../../constants/constants"
 export default function Donate(){
+
+    const { chainId: chainIdHex }= useMoralis()
+    const chainId=parseInt(chainIdHex)
+    const storageAddress=sepoliaContractAddress
+    // const {runContractFunction: createNewDonor}= useWeb3Contract({
+    //     abi:abi,
+    //     contractAddress:storageAddress,
+    //     functionName:"createNewDonor",
+    //     params:{
+    //         _name:, 
+    //         _age:, 
+    //         _locality:,
+    //         _bloodtype:,
+    //         _organ:,
+    //         _organLife:,
+    //         _hospitalName:,
+    //     },
+    // })
+
     return(
         <div>
             <div className="donor">
