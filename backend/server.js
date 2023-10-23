@@ -27,7 +27,7 @@ app.post(`/login`,async (req,res)=>{
         const userEntry = req.body        
         const dbEntry= await User.find({username:`${userEntry.username}`})
         console.log('received data from user')
-        if(dbEntry===[]){
+        if(dbEntry==[]){
             console.log('no such username exists')
             return res.status(404).json({"error": "wrong username"})
         }
@@ -45,7 +45,7 @@ app.post(`/login`,async (req,res)=>{
 
 app.post(`/register`,async (req,res)=>{
     try{
-        if(await User.find({username:`${req.body.username}`})===[]){
+        if(await User.find({username:`${req.body.username}`})==[]){
             console.log('no such username exists, can be registered')
             const user = await User.create(req.body)
             return res.status(200).json(user)

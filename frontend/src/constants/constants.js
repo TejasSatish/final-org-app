@@ -1,5 +1,5 @@
 export const hardhatContractAddress="0x5FbDB2315678afecb367f032d93F642f64180aa3"
-export const sepoliaContractAddress="0xec19Fbce36E1f3f54BC7f92b9321840eE7c232Ea"
+export const sepoliaContractAddress="0x7F2bfC1c37532fD7Fa097857Ff4717252b99585B"
 export const abi= [
     {
       "inputs": [

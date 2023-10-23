@@ -1,4 +1,5 @@
 input{
+    width:80px;
     display: flex;
 }
 .donor{
