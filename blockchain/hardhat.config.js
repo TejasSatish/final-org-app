@@ -26,5 +26,5 @@ module.exports = {
   gasResporter:{
     enabled:true,  
   },
-  solidity: "0.8.19",
+  solidity: "0.8.9",
 };

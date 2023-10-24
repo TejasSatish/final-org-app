@@ -1,15 +1,15 @@
-.donor{
+.recipient{
     padding: 5px 0px 5px 0px;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-.donor input{
+.recipient input{
     width: 100px;
 }
 
-.existing-donor{
+.existing-recipient{
     display: flex;
     flex-direction: column;
     border: 1px solid black;
