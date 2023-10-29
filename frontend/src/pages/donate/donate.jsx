@@ -1,9 +1,7 @@
 /* global BigInt */  //this comment is necessary or else BigInt will not work with react
 import { React, useState } from "react"
-import { BigNumber } from "ethers"
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { abi, hardhatContractAddress, sepoliaContractAddress } from "../../constants/constants"
-import { Donor } from "../../components/donor/donor"
 import './donate.css'
 export default function Donate(){
 

@@ -1,8 +1,8 @@
 /* global BigInt */  //this comment is necessary or else BigInt will not work with react
 import { React,useState } from "react"
 import { useMoralis, useWeb3Contract } from "react-moralis"
-import { BigNumber} from "ethers"
 import { abi, hardhatContractAddress, sepoliaContractAddress } from "../../constants/constants"
+import axios from "axios";
 import './receive.css'
 export default function Receive(){
 
@@ -62,10 +62,36 @@ export default function Receive(){
         setRecipientId(generateUniqueUint256());
     }
 
+    const handleSubmit=async (e)=>{
+        const recipDetails={
+            id: recipientId.toString(),
+            name: name,
+            age: age,
+            locality: locality,
+            bloodtype: bloodType,
+            organ: organ,
+            organSize: organSize,
+            hospitalName: hospital,
+        }
+        
+        axios.post("http://localhost:3001/receive",recipDetails,{
+        'Content-Type': 'application/json'
+        }).then((response)=>{
+            const status=response.status
+            console.log(response);
+            if(status===200){
+                console.log('sent success')
+            }
+            console.error(response.data)
+        }) 
+    }
+
     async function createRecipient(){
         changeRecipientId();
 
-        const response = await createNewRecipient();
+        const response = await createNewRecipient();   
+
+        handleSubmit();
     }
 
     async function viewRecipients(){

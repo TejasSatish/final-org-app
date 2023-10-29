@@ -60,6 +60,27 @@ app.post(`/register`,async (req,res)=>{
     }
 })
 
+
+const spawn = require("child_process").spawn;
+
+app.post(`/receive`,async (req,res)=>{
+    try{
+        console.log(`${req.body.name} ${req.body.age} ${req.body.organ} ${req.body.organSize}`)
+        const pythonScript = spawn('D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\scripts\\Scripts\\python',["./scripts/classifier.py", req.body.age,req.body.organSize]);
+        pythonScript.stdout.on("data",(data)=>{
+            console.log(data)
+           return res.send(data.toString());
+        });
+        pythonScript.stderr.on('data', (data) => {
+
+            console.log(data.toString())
+        });        
+        
+        
+    }catch(err){
+        console.log(err)
+    }
+})
 // app.get(`/blogs/get`, async (req,res)=>{
 //     try{
 //         const blogs=await Blog.find({})

@@ -1,7 +1,7 @@
 import { React,useEffect } from "react";
 import { Link, useLocation } from "react-router-dom"
-import { useMoralis } from "react-moralis"
-
+import { useMoralis, useWeb3Contract } from "react-moralis"
+import { abi, hardhatContractAddress, sepoliaContractAddress } from "../../constants/constants"
 import './navbar.css'
 export default function Navbar(){
     const location = useLocation();
@@ -30,6 +30,20 @@ export default function Navbar(){
     if(location.pathname === "/" ||location.pathname === "/register") {
         return <div/>
     }
+
+    // const {runContractFunction: resetAll, error}= useWeb3Contract({
+    //     abi:abi,
+    //     contractAddress:storageAddress,
+    //     functionName:"resetAll",
+    //     params:{},
+    // })
+
+    // async function deleteAll(){
+    //     const response = await resetAll();
+    //     console.log(error)
+    // }
+
+
     return(
         <div className="navbar">
             <div className="organisation">
@@ -37,7 +51,7 @@ export default function Navbar(){
             </div>
             <div className="navlinks">
                 <Link to="/donate">Donate</Link>
-                <Link to="/recieve">Recieve</Link>
+                <Link to="/receive">Receive</Link>
                 <Link to="/dashboard">Dashboard </Link>
             </div>
             <div className="accountlinks">
@@ -50,6 +64,7 @@ export default function Navbar(){
                     }
                     }}>Connect</Link> }
                 <Link to="/">Logout</Link>
+                {/* <button onClick={deleteAll}>delete all</button> */}
             </div>
         </div>
     );

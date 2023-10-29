@@ -1,5 +1,5 @@
 export const hardhatContractAddress="0x5FbDB2315678afecb367f032d93F642f64180aa3"
-export const sepoliaContractAddress="0x7F2bfC1c37532fD7Fa097857Ff4717252b99585B"
+export const sepoliaContractAddress="0xDecea0b57040B9dBcbf52B04cd5f74d3f2eb168C"
 export const abi= [
   {
     "anonymous": false,
@@ -125,6 +125,12 @@ export const abi= [
   },
   {
     "anonymous": false,
+    "inputs": [],
+    "name": "DonorsCleared",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
     "inputs": [
       {
         "indexed": false,
@@ -231,6 +237,12 @@ export const abi= [
       }
     ],
     "name": "RecipientRemoved",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [],
+    "name": "RecipientsCleared",
     "type": "event"
   },
   {
@@ -469,6 +481,13 @@ export const abi= [
       }
     ],
     "name": "removeRecipient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "resetAll",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

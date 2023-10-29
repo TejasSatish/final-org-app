@@ -16,7 +16,7 @@ function App() {
             <Route path="/" element={<Login/>}></Route>
             <Route path="/register" element={<Register/>}></Route>
             <Route path="/donate" element={<Donate/>}></Route>
-            <Route path="/recieve" element={<Receive/>}></Route>
+            <Route path="/receive" element={<Receive/>}></Route>
             <Route path="/dashboard"></Route>
           </Routes>
         </Router>

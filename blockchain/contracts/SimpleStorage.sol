@@ -37,6 +37,10 @@ contract SimpleStorage{
     event DonorRemoved(uint256 id,string name,uint104 age,string locality,string bloodType,string organ,string organSize,string organLife,string hospitalName);
     event RecipientRemoved(uint256 id,string name,uint104 age,string locality,string bloodType,string organ,string organSize,string hospitalName);
 
+    // Event to log when arrays are cleared.
+    event DonorsCleared();
+    event RecipientsCleared();
+
     OrganDonor[] public donors;
     OrganRecipient[] public recipients;
     function createNewDonor(uint256 _id,string memory _name, uint104 _age, string memory _locality,string memory _bloodtype, string memory _organ, string memory _organSize,string memory _organLife, string memory _hospitalName)public{
@@ -97,10 +101,26 @@ contract SimpleStorage{
 
 
     function retrieveDonors() public view returns (OrganDonor[] memory){
-        return donors;//stopped at 12:32:32
+        return donors;
     }
 
     function retrieveRecipients() public view returns (OrganRecipient[] memory){
         return recipients;
+    }
+
+    function resetAll() public {
+         uint256 dLength=donors.length;
+         uint256 rLength=recipients.length;
+
+         for(uint256 i=0;i<dLength;i++){
+            delete donors[i];
+         }
+
+         for(uint256 i=0;i<rLength;i++){
+            delete recipients[i];
+         }
+
+         emit DonorsCleared();
+         emit RecipientsCleared();
     }
 }

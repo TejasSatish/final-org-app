@@ -27,7 +27,7 @@ export default function Register(){
         }).then((response)=>{
             const status=response.status
             console.log(response);
-            if(status==200){
+            if(status===200){
                 window.location="/"
             }
             console.error(response.data)
