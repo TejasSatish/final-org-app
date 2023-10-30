@@ -1,30 +1,47 @@
+import { React, useState } from "react"
 import {Container, CssBaseline, Avatar, Typography, Box, TextField, FormControlLabel, Button, Grid, Link, Checkbox} from '@mui/material'
 //import {LockOutlinedIcon} from "@mui/icons-material/LockOutlined"
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Link as RouterLink } from 'react-router-dom';
+import axios from "axios"
+const Login=()=>{
+  const [userDetails, setUserDetails] = useState({
+    organisationName:"",
+    username:"",
+    password:"",
+  })
+// useEffect(()=>{
+//     setUserDetails(formData)
+// },[formData])
 
-function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" href="https://mui.com/">
-          Your Website
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
+  const handleInput=(e)=>{
+    const {name, value}=e.target
+    setUserDetails({...userDetails, [name]:value})
   }
 
-const Login=()=>{
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
-      };
-    
+  const handleSubmit=async (e)=>{
+      e.preventDefault()
+      const loginDetails={
+          organisationName:"",
+          username:userDetails.username,
+          password:userDetails.password,
+      }
+      await axios.post("http://localhost:3001/login",loginDetails,{
+      'Content-type': 'application/json'
+      }).then((response)=>{
+          const status=response.status;
+          console.log(`${response.statusText}`);
+          console.log(`${response.data.organisationName}`);
+          if(status==200){
+              window.localStorage.setItem("organisation",`${response.data.organisationName}`);
+              window.location="/donate"
+          }
+      })
+      setUserDetails({
+          username:"",
+          password:"",
+      })
+  }
     return(
         <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -40,7 +57,7 @@ const Login=()=>{
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -48,10 +65,12 @@ const Login=()=>{
               required
               fullWidth
               id="email"
-              label="Email Address"
-              name="email"
+              label="User name"
+              name="username"
               autoComplete="email"
               autoFocus
+              value={userDetails.username} 
+              onChange={handleInput}
             />
             <TextField
               margin="normal"
@@ -62,10 +81,8 @@ const Login=()=>{
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+              value={userDetails.password}
+              onChange={handleInput}
             />
             <Button
               type="submit"
@@ -76,20 +93,14 @@ const Login=()=>{
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link component= {RouterLink} to="/register" href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     );
 }
