@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import Navbar from "./components/navbar"
+import Sidebar from "./components/sidebar"
+import Login from "./pages/login/login.jsx"
+import {Box} from "@mui/material"
+const linksArray=["Donate", "Receive", "Dashboard"]
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Box xs={{flexDirection:"row"}}>
+        <Router>
+          <Navbar links={linksArray}/>
+          <Routes>
+            <Route path="/" element={<Login/>}></Route>
+            <Route path="/register"></Route>
+            <Route path="/donate" ></Route>
+            <Route path="/receive" ></Route>
+            <Route path="/dashboard"></Route>
+          </Routes>
+        </Router>
+      </Box>
     </div>
   );
 }
