@@ -3,6 +3,7 @@ import { React, useState } from "react"
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { abi, hardhatContractAddress, sepoliaContractAddress } from "../../constants/constants"
 import './donate.css'
+//import '../css/style.css' 
 export default function Donate(){
 
     const [donorList, setDonorList]=useState();
@@ -83,14 +84,14 @@ export default function Donate(){
     return(
         <div>
             <div className="donor">
-                <input id="don-name" type="text" placeholder="name" onChange= {(e)=> setName(e.target.value)}/> 
-                <input id="don-age" type="number" placeholder="age" onChange= {(e)=> setAge(e.target.value)}/> 
-                <input id="don-locality" type="text" placeholder="locality" onChange= {(e)=> setLocality(e.target.value)}/> 
-                <input id="don-bloodType" type="text" placeholder="blood type" onChange= {(e)=> setBloodType(e.target.value)}/> 
-                <input id="don-organ" type="text" placeholder="organ" onChange= {(e)=> setOrgan(e.target.value)}/> 
-                <input id="don-organSize"type="text" placeholder="organ size" onChange= {(e)=> setOrganSize(e.target.value)}/> 
-                <input id="don-organLife"type="text" placeholder="organ lifetime" onChange= {(e)=> setOrganLifetime(e.target.value)}/> 
-                <button id="donate" onClick={createDonor}>Donate</button><br/><br/>
+                <input className="form-text" id="don-name" type="text" placeholder="name" onChange= {(e)=> setName(e.target.value)}/> 
+                <input className="form-text"id="don-age" type="number" placeholder="age" onChange= {(e)=> setAge(e.target.value)}/> 
+                <input className="form-text"id="don-locality" type="text" placeholder="locality" onChange= {(e)=> setLocality(e.target.value)}/> 
+                <input className="form-text"id="don-bloodType" type="text" placeholder="blood type" onChange= {(e)=> setBloodType(e.target.value)}/> 
+                <input className="form-text"id="don-organ" type="text" placeholder="organ" onChange= {(e)=> setOrgan(e.target.value)}/> 
+                <input className="form-text"id="don-organSize"type="text" placeholder="organ size" onChange= {(e)=> setOrganSize(e.target.value)}/> 
+                <input className="form-text"id="don-organLife"type="text" placeholder="organ lifetime" onChange= {(e)=> setOrganLifetime(e.target.value)}/> 
+                <button class="btn" onClick={createDonor}>Donate</button>
             </div>
             <div className="existing-donor">
                 <button onClick={viewDonors}>View existing donors</button> 
@@ -98,13 +99,15 @@ export default function Donate(){
                     donorList?.map((donor)=>{
                    
                         const age=(donor.age).toString();
-
-                        return(
-                            <div className="donor" key={donor._id}>
-                                Name: {donor.name} age: {age} locality: {donor.locality} organ: {donor.organ} organ size: {donor.organSize}
-                            </div>
-                        )
-                        
+                        if(age===0 || donor.name===''||donor.locality===''){
+                            return(<div></div>)
+                        }else{
+                            return(
+                                <div className="donor" key={donor._id}>
+                                    Name: {donor.name} age: {age} locality: {donor.locality} organ: {donor.organ} organ size: {donor.organSize}
+                                </div>
+                            )
+                        }
                     })
                 }
             </div>

@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { Link, useNavigate} from "react-router-dom";
 import axios from "axios";
-import './login.css' 
+import '../css/style.css' 
 export default function Login(){
     // let navigate = useNavigate(); 
     // const routeChange = () =>{ 
@@ -47,13 +47,40 @@ export default function Login(){
         })
     }
     return(
+        
         <div className="container">
-            <form onSubmit={handleSubmit}>
-                <input className="input"  placeholder="username" type="text" name="username" value={userDetails.username} onChange={handleInput}/><br/><br/>
-                <input className="input"  placeholder="password" type="password" name="password" value={userDetails.password} onChange={handleInput}/><br/><br/>
-                <button>Submit</button>
-                <Link to="/register">Create an account</Link>
-            </form>
+
+            <div class="login">
+                    <span class="fas fa-sign-in-alt" aria-hidden="true"></span>
+                    <strong>Welcome!</strong>
+                    <span>Sign in to your account</span>
+
+                    <form class="login-form"  onSubmit={handleSubmit}>
+                        <fieldset>
+                            <div class="form">
+                                <div class="form-row">
+                                    <span class="fas fa-user" aria-hidden="true"></span>
+                                    <label class="form-label" for="input">Name</label>
+                                    <input type="text" class="form-text" name="username" value={userDetails.username} onChange={handleInput}></input>
+                                </div>
+                                <div class="form-row">
+                                    <span class="fas fa-eye" aria-hidden="true"></span>
+                                    <label class="form-label" for="input">Password</label>
+                                    <input type="password" class="form-text" name="password" value={userDetails.password} onChange={handleInput}></input>
+                                </div>
+                                <div class="form-row bottom">
+                                   <Link to="/register" class="forgot"> Create a new account?</Link> 
+                                </div>
+                                <div class="form-row button-login">
+                                    <button class="btn btn-login">Login <span class="fas fa-arrow-right" aria-hidden="true"></span></button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
         </div>
     );
 }
+
+
+

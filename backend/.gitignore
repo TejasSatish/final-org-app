@@ -23,8 +23,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#python venv ignores
+#python venv ignores (Windows)
 /scripts/Include
 /scripts/Lib
 /scripts/Scripts
 /scripts/pyvenv.cfg
+#python venv ignores (Ubuntu)
+/scripts/bin
+/scripts/lib
+/scripts/lib64
+/scripts/share

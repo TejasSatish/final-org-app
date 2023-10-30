@@ -27,21 +27,8 @@ export default function Navbar(){
         })
     },[])
 
-    if(location.pathname === "/" ||location.pathname === "/register") {
-        return <div/>
-    }
 
-    // const {runContractFunction: resetAll, error}= useWeb3Contract({
-    //     abi:abi,
-    //     contractAddress:storageAddress,
-    //     functionName:"resetAll",
-    //     params:{},
-    // })
-
-    // async function deleteAll(){
-    //     const response = await resetAll();
-    //     console.log(error)
-    // }
+    
 
 
     return(
@@ -64,7 +51,7 @@ export default function Navbar(){
                     }
                     }}>Connect</Link> }
                 <Link to="/">Logout</Link>
-                {/* <button onClick={deleteAll}>delete all</button> */}
+                
             </div>
         </div>
     );

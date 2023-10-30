@@ -2,9 +2,10 @@
 #not the python version installed in the venv
 #use an external terminal and run it
 #for more help, visit https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/ 
+#ALWAYS USE ABSOLUTE PATHS
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from sklearn.neighbors import NearestNeighbors
 from sklearn.cluster import KMeans
 import sys
@@ -18,18 +19,27 @@ import os
 
 # loadedKModel.predict([[45,10.7]])
 
-def sayHello(age,size):
-    with open("../assets/model.pkl", "rb") as f:
+def findRecipientMatch(size,age):
+    with open("/home/wsdev88/t/final-org-app/backend/assets/model.pkl", "rb") as f:
         loadedKModel = pickle.load(f)
+    data = {
+    "Size": [size],
+    "Age": [age]
+    }
 
-    query=loadedKModel.predict([[age,size]])
-    print(query)
+    dataset=pd.read_csv('/home/wsdev88/t/final-org-app/backend/assets/gan_data.csv')
+
+    #load data into a DataFrame object:
+    queryDF = pd.DataFrame(data)
+    query=loadedKModel.predict(queryDF[['Size','Age']])
+
+    # sameCluster=dataset.loc[dataset['cluster']==query[0]]
     
+    #bloodTypeMatch=sameCluster.loc[(dataset['BloodType']=='B-') | (dataset['BloodType']=='B+') | (dataset['BloodType']=='AB+')]
+
+    clusterMatch= dataset.loc[dataset['cluster']==query[0]].to_json()
+    print(clusterMatch)
 
 
-print(sayHello(sys.argv[1],sys.argv[2]))
-#print(os.environ['VIRTUAL_ENV']+" "+os.path.dirname(sys.executable))
 
-sys.stdout.flush()
- ###TO DO
- ### runs w/o error from venv terminal, shows FileNotFound error for model when run
+findRecipientMatch(sys.argv[1],sys.argv[2])

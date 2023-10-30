@@ -78,11 +78,11 @@ export default function Receive(){
         'Content-Type': 'application/json'
         }).then((response)=>{
             const status=response.status
-            console.log(response);
             if(status===200){
                 console.log('sent success')
             }
-            console.error(response.data)
+            console.log(response.data);
+            
         }) 
     }
 
@@ -101,29 +101,47 @@ export default function Receive(){
         console.log(error)
     }
 
+
+    const {runContractFunction: resetAll}= useWeb3Contract({
+        abi:abi,
+        contractAddress:storageAddress,
+        functionName:"resetAll",
+        params:{},
+    })
+
+    async function deleteAll(){
+        const response = await resetAll();
+        console.log(error)
+    }
+
     return(
         <div>
             <div className="recipient">
-                <input id="rec-name" type="text" placeholder="name" onChange= {(e)=> setName(e.target.value)}/> 
-                <input id="rec-age" type="age" placeholder="age" onChange= {(e)=> setAge(e.target.value)}/> 
-                <input id="rec-locality" type="text" placeholder="locality" onChange= {(e)=> setLocality(e.target.value)}/> 
-                <input id="rec-bloodType" type="text" placeholder="blood type" onChange= {(e)=> setBloodType(e.target.value)}/> 
-                <input id="rec-organ" type="text" placeholder="organ" onChange= {(e)=> setOrgan(e.target.value)}/>  
-                <input id="rec-organSize" type="text" placeholder="organ size" onChange= {(e)=> setOrganSize(e.target.value)}/>
-                <button id="receive" onClick={createRecipient}>Receive</button><br/><br/>
+                <input className="form-text" id="rec-name" type="text" placeholder="name" onChange= {(e)=> setName(e.target.value)}/> 
+                <input className="form-text" id="rec-age" type="age" placeholder="age" onChange= {(e)=> setAge(e.target.value)}/> 
+                <input className="form-text" id="rec-locality" type="text" placeholder="locality" onChange= {(e)=> setLocality(e.target.value)}/> 
+                <input className="form-text" id="rec-bloodType" type="text" placeholder="blood type" onChange= {(e)=> setBloodType(e.target.value)}/> 
+                <input className="form-text" id="rec-organ" type="text" placeholder="organ" onChange= {(e)=> setOrgan(e.target.value)}/>  
+                <input className="form-text" id="rec-organSize" type="text" placeholder="organ size" onChange= {(e)=> setOrganSize(e.target.value)}/>
+                <button className="btn" id="receive" onClick={createRecipient}>Receive</button><br/><br/>
             </div>
             <div className="existing-recipient">
                 <button onClick={viewRecipients}>View existing recipients</button>
+                <button onClick={deleteAll}>delete all</button>
                 {
                     recipientList?.map((recipient)=>{
                    
                         const age=(recipient.age).toString();
-
-                        return(
-                            <div className="recipient" key={recipient._id}>
-                                Name: {recipient.name} age: {age} locality: {recipient.locality} organ: {recipient.organ} organ size: {recipient.organSize}
-                            </div>
-                        )
+                        if(age===0 || recipient.name===''||recipient.locality===''){
+                            return(<div></div>)
+                        }else{
+                            return(
+                                <div className="recipient" key={recipient._id}>
+                                    Name: {recipient.name} age: {age} locality: {recipient.locality} organ: {recipient.organ} organ size: {recipient.organSize}
+                                </div>
+                            )
+                        }
+                        
                         
                     })
                 }
