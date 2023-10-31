@@ -18,16 +18,17 @@ import os
 #     loadedKModel = pickle.load(f)
 
 # loadedKModel.predict([[45,10.7]])
-
+#"/home/wsdev88/t/final-org-app/backend/assets/model.pkl"
+#'/home/wsdev88/t/final-org-app/backend/assets/gan_data.csv'
 def findRecipientMatch(size,age):
-    with open("/home/wsdev88/t/final-org-app/backend/assets/model.pkl", "rb") as f:
+    with open("D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\model.pkl", "rb") as f:
         loadedKModel = pickle.load(f)
     data = {
     "Size": [size],
     "Age": [age]
     }
 
-    dataset=pd.read_csv('/home/wsdev88/t/final-org-app/backend/assets/gan_data.csv')
+    dataset=pd.read_csv("D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\gan_data.csv")
 
     #load data into a DataFrame object:
     queryDF = pd.DataFrame(data)

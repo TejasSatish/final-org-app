@@ -3,7 +3,7 @@ import { AppBar, Box, Grid, Toolbar, Typography, Tab, Tabs, Button} from "@mui/m
 import { Link, useLocation } from "react-router-dom";
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { useMoralis, useWeb3Contract } from "react-moralis"
-const Navbar=({links})=>{
+const Navbar=()=>{
     const [value, setValue]= useState(0)
     const location = useLocation();
 

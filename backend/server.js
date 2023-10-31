@@ -65,10 +65,10 @@ app.post(`/register`,async (req,res)=>{
 const spawn = require("child_process").spawn;
 const windowsPath='D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\scripts\\Scripts\\python'
 const ubuntuPath='/home/wsdev88/t/final-org-app/backend/scripts/bin/python'
-app.post(`/receive`,async (req,res)=>{
+app.post(`/receive/add`,async (req,res)=>{
     try{
         console.log(`${req.body.name} ${req.body.age} ${req.body.organ} ${req.body.organSize}`)
-        const pythonScript = spawn(ubuntuPath,["./scripts/classifier.py", req.body.organSize,req.body.age]);
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py", req.body.organSize,req.body.age]);
         pythonScript.stdout.on("data",(data)=>{
             resultJson=JSON.parse(data.toString())
             console.log(resultJson)
