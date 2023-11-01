@@ -1,9 +1,10 @@
 require('dotenv').config()
 const express = require(`express`)
 const cors = require(`cors`) 
+const fs = require('fs');
 const mongoose = require(`mongoose`)
 var ObjId = require('mongoose').mongo.BSON.ObjectId;
-const User = require('./userModel.js')
+const User = require('./userModel.js');
 const app = express()
 
 app.use(cors())
@@ -67,30 +68,50 @@ const windowsPath='D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\
 const ubuntuPath='/home/wsdev88/t/final-org-app/backend/scripts/bin/python'
 app.post(`/receive/add`,async (req,res)=>{
     try{
-        console.log(`${req.body.name} ${req.body.age} ${req.body.organ} ${req.body.organSize}`)
-        const pythonScript = spawn(windowsPath,["./scripts/classifier.py", req.body.organSize,req.body.age]);
-        pythonScript.stdout.on("data",(data)=>{
-            resultJson=JSON.parse(data.toString())
-            console.log(resultJson)
-            
-           return res.send(resultJson);
-        });
-        pythonScript.stderr.on('data', (data) => {
+        let id=req.body.id
+        let name=req.body.name
+        let age=req.body.age
+        let locality=req.body.locality
+        let organ=req.body.organ
+        let size=req.body.organSize
 
-            console.log(data.toString())
-        });        
+        const recipient={
+            'id':id,
+            'name':name,
+            'age':age,
+            'locality':locality,
+            'organ':organ,
+            'size':size
+        }
+        //const matchJson= 
+        const pythonScript = spawn(ubuntuPath,["./scripts/classifier.py", size,age]);
+        //gets result json from python script
+
         
+        const queryResultJson=JSON.parse(fs.readFileSync("./assets/match.json", 'utf8'));
+        // opens results.json and appends new recipient as key with results as value
+        fs.readFile('./results.json', (err,data)=> {
+            let json = JSON.parse(data)
+            json.table.push(JSON.stringify(recipient)+':'+JSON.stringify(queryResultJson))
+
+            fs.writeFile("results.json", JSON.stringify(json),'utf8',()=>{})
+        })
+        // const matchson=JSON.parse(fs.readFileSync("./assets/match.json", 'utf8'));
+        return res.send("successfully processed by py script, and results found")
         
     }catch(err){
         console.log(err.toString())
     }
 })
-// app.get(`/blogs/get`, async (req,res)=>{
-//     try{
-//         const blogs=await Blog.find({})
-//         res.json(blogs)
-//     }catch(e){
-//         console.error(e) 
-//         console.log(typeof(db))
-//     }
-// })
+
+app.get(`/receive/matches`, async (req,res)=>{
+    try{
+        fs.readFile('./results.json', (err,data)=> {
+            let allMatches = JSON.parse(data)
+            res.status(200).json(allMatches)
+        })
+    }catch(e){
+        console.error(e) 
+        console.log(typeof(db))
+    }
+})

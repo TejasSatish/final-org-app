@@ -1,0 +1,34 @@
+{
+    "181": {
+        "No": "181",
+        "BloodType": "AB+",
+        "TissueTyping": "HLA-A3,B5",
+        "Age": "22",
+        "Size": "12.0",
+        "cluster": "11"
+    },
+    "215": {
+        "No": "215",
+        "BloodType": "AB+",
+        "TissueTyping": "HLA-A3,B5",
+        "Age": "22",
+        "Size": "11.4",
+        "cluster": "11"
+    },
+    "292": {
+        "No": "292",
+        "BloodType": "AB-",
+        "TissueTyping": "HLA-A3,B5",
+        "Age": "22",
+        "Size": "11.8",
+        "cluster": "11"
+    },
+    "328": {
+        "No": "328",
+        "BloodType": "A+",
+        "TissueTyping": "HLA-A1,B8",
+        "Age": "22",
+        "Size": "11.7",
+        "cluster": "11"
+    }
+}

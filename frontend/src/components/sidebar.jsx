@@ -10,16 +10,18 @@ const Sidebar=({tabList})=>{
         <Box role="presentation">
           <List>
           {tabList.map((tab, index) => (
-          <ListItem key={tab.option} disablePadding>
-            <ListItemButton component={Link} to={`${tab.linkTo}`}>
-              <ListItemIcon>
-                  {(tab.icon == 'PersonAddIcon')?<PersonAddIcon/>:(tab.icon==='ViewListIcon')?<ViewListIcon/>:<PreviewIcon/>}
-              </ListItemIcon>
-              <ListItemText primary={tab.option} />
-            </ListItemButton>
-          </ListItem>
+            <Box key={index}>
+              <ListItem  disablePadding>
+                <ListItemButton component={Link} to={`${tab.linkTo}`}>
+                  <ListItemIcon>
+                      {(tab.icon == 'PersonAddIcon')?<PersonAddIcon/>:(tab.icon==='ViewListIcon')?<ViewListIcon/>:<PreviewIcon/>}
+                  </ListItemIcon>
+                  <ListItemText primary={tab.option} />
+                </ListItemButton>
+              </ListItem>
+              <Divider/>
+            </Box>
         ))}
-
           </List>
         </Box>
       );

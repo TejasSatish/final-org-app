@@ -37,13 +37,7 @@ const AddNewRecipient=()=>{
         },
     })
 
-    //view recipients list contract
-    const {runContractFunction: retrieveRecipients, error}= useWeb3Contract({
-        abi:abi,
-        contractAddress:storageAddress,
-        functionName:"retrieveRecipients",
-        params:{},
-    })
+   
 
     function generateUniqueUint256() {
         // Create a Uint8Array to hold the 256 bits (32 bytes) of the ID.
@@ -94,13 +88,6 @@ const AddNewRecipient=()=>{
         handleSubmit();
     }
 
-    async function viewRecipients(){
-        const response = await retrieveRecipients();
-        setRecipientList(response);
-        console.log(recipientList);
-        console.log(error)
-    }
-
 
     const {runContractFunction: resetAll}= useWeb3Contract({
         abi:abi,
@@ -111,7 +98,6 @@ const AddNewRecipient=()=>{
 
     async function deleteAll(){
         const response = await resetAll();
-        console.log(error)
     }
 
     return(

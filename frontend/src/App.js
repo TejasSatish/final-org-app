@@ -10,6 +10,8 @@ import { MoralisProvider } from 'react-moralis';
 import AddNewDonor from "./pages/donate/addNewDonor"
 import ViewExistingDonor from "./pages/donate/viewExistingDonor"
 import AddNewRecipient from "./pages/receive/addNewRecipient"
+import ViewExistingRecipient from "./pages/receive/viewExistingRecipient"
+import ViewMatches from "./pages/receive/viewMatches"
 function App() {
 
   return (
@@ -27,8 +29,8 @@ function App() {
               </Route>
               <Route path="/receive" element={ <Receive/> } >
                 <Route path="add" element={<AddNewRecipient/>}></Route>
-                <Route path="view"></Route>
-                <Route path="matches"></Route>
+                <Route path="view" element={<ViewExistingRecipient/>}></Route>
+                <Route path="matches" element={<ViewMatches/>}></Route>
               </Route>
               <Route path="/dashboard" element={ <Dashboard/> } ></Route>
             </Routes>

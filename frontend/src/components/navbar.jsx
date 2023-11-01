@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { AppBar, Box, Grid, Toolbar, Typography, Tab, Tabs, Button} from "@mui/material"
 import { Link, useLocation } from "react-router-dom";
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import { useMoralis, useWeb3Contract } from "react-moralis"
+import { useMoralis} from "react-moralis"
 const Navbar=()=>{
-    const [value, setValue]= useState(0)
+    const [value, setValue]= useState()
     const location = useLocation();
 
-    const {enableWeb3, account, isWeb3Enabled, isWeb3EnableLoading, Moralis, deactivateWeb3 }=useMoralis();
+    const {enableWeb3, account, isWeb3Enabled, Moralis, deactivateWeb3 }=useMoralis();
 
     useEffect(()=>{
         if(isWeb3Enabled) return

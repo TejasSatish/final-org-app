@@ -6,8 +6,6 @@ import { Card, Typography, Box, Grid, TextField, Button } from "@mui/material"
 
 const AddNewDonor=()=>{
 
-    const [donorList, setDonorList]=useState();
-
     const [name,setName]= useState("")
     const [age,setAge]= useState("")
     const [locality,setLocality]= useState("")
@@ -38,15 +36,6 @@ const AddNewDonor=()=>{
         },
     })
 
-    //view donor list contract
-
-    const {runContractFunction: retrieveDonors, error}= useWeb3Contract({
-        abi:abi,
-        contractAddress:storageAddress,
-        functionName:"retrieveDonors",
-        params:{},
-    })  
-
     function generateUniqueUint256() {
         // Create a Uint8Array to hold the 256 bits (32 bytes) of the ID.
         const idArray = new Uint8Array(32);
@@ -71,14 +60,6 @@ const AddNewDonor=()=>{
         
         console.log(response)
         
-    }
-
-
-    async function viewDonors(){
-        const response = await retrieveDonors();
-        setDonorList(response);
-        console.log(donorList)
-        console.log(error)
     }
 
     return(
