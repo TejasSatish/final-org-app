@@ -10,6 +10,7 @@ contract SimpleStorage{
         uint256 id;
         string name;
         uint104 age;
+        string gender;
         string locality;
         string bloodType;
         string organ;
@@ -22,6 +23,7 @@ contract SimpleStorage{
         uint256 id;
         string name;
         uint104 age;
+        string gender;
         string locality;
         string bloodType;
         string organ;
@@ -30,12 +32,12 @@ contract SimpleStorage{
     }
 
     // Event to log when an item is added.
-    event DonorAdded(uint256 id,string name,uint104 age,string locality,string bloodType,string organ,string organSize,string organLife,string hospitalName);
-    event RecipientAdded(uint256 id,string name,uint104 age,string locality,string bloodType,string organ,string organSize,string hospitalName);
+    event DonorAdded(uint256 id,string name,uint104 age,string gender,string locality,string bloodType,string organ,string organSize,string organLife,string hospitalName);
+    event RecipientAdded(uint256 id,string name,uint104 age,string gender,string locality,string bloodType,string organ,string organSize,string hospitalName);
 
     // Event to log when an item is removed.
-    event DonorRemoved(uint256 id,string name,uint104 age,string locality,string bloodType,string organ,string organSize,string organLife,string hospitalName);
-    event RecipientRemoved(uint256 id,string name,uint104 age,string locality,string bloodType,string organ,string organSize,string hospitalName);
+    event DonorRemoved(uint256 id,string name,uint104 age,string gender,string locality,string bloodType,string organ,string organSize,string organLife,string hospitalName);
+    event RecipientRemoved(uint256 id,string name,uint104 age,string gender,string locality,string bloodType,string organ,string organSize,string hospitalName);
 
     // Event to log when arrays are cleared.
     event DonorsCleared();
@@ -43,17 +45,17 @@ contract SimpleStorage{
 
     OrganDonor[] public donors;
     OrganRecipient[] public recipients;
-    function createNewDonor(uint256 _id,string memory _name, uint104 _age, string memory _locality,string memory _bloodtype, string memory _organ, string memory _organSize,string memory _organLife, string memory _hospitalName)public{
+    function createNewDonor(uint256 _id,string memory _name, uint104 _age,string memory _gender, string memory _locality,string memory _bloodtype, string memory _organ, string memory _organSize,string memory _organLife, string memory _hospitalName)public{
     
-        donors.push(OrganDonor(_id,_name,_age,_locality,_bloodtype,_organ,_organSize,_organLife,_hospitalName)); //creating a donor object and pushing to array
-        emit DonorAdded(_id,_name,_age,_locality,_bloodtype,_organ,_organSize,_organLife,_hospitalName);
+        donors.push(OrganDonor(_id,_name,_age,_gender,_locality,_bloodtype,_organ,_organSize,_organLife,_hospitalName)); //creating a donor object and pushing to array
+        emit DonorAdded(_id,_name,_age,_gender,_locality,_bloodtype,_organ,_organSize,_organLife,_hospitalName);
         
     }
 
-    function createNewRecipient(uint256 _id,string memory _name, uint104 _age, string memory _locality,string memory _bloodtype, string memory _organ,string memory _organSize, string memory _hospitalName)public{
+    function createNewRecipient(uint256 _id,string memory _name, uint104 _age,string memory _gender, string memory _locality,string memory _bloodtype, string memory _organ,string memory _organSize, string memory _hospitalName)public{
     
-        recipients.push(OrganRecipient(_id,_name,_age,_locality,_bloodtype,_organ,_organSize,_hospitalName)); //creating a donor object and pushing to array
-        emit RecipientAdded(_id,_name,_age,_locality,_bloodtype,_organ,_organSize,_hospitalName);
+        recipients.push(OrganRecipient(_id,_name,_age,_gender,_locality,_bloodtype,_organ,_organSize,_hospitalName)); //creating a donor object and pushing to array
+        emit RecipientAdded(_id,_name,_age,_gender,_locality,_bloodtype,_organ,_organSize,_hospitalName);
         
     }
 
@@ -66,7 +68,7 @@ contract SimpleStorage{
 
         donors[indexToRemove] = lastDonor;
         donors.pop();
-        emit DonorRemoved(donorToRemove.id, donorToRemove.name, donorToRemove.age, donorToRemove.locality, donorToRemove.bloodType, donorToRemove.organ,donorToRemove.organSize, donorToRemove.organLife, donorToRemove.hospitalName);
+        emit DonorRemoved(donorToRemove.id, donorToRemove.name, donorToRemove.age,donorToRemove.gender, donorToRemove.locality, donorToRemove.bloodType, donorToRemove.organ,donorToRemove.organSize, donorToRemove.organLife, donorToRemove.hospitalName);
     }
 
     function findDonorIndexById(uint256 _id) internal view returns (uint256) {
@@ -87,7 +89,7 @@ contract SimpleStorage{
 
         recipients[indexToRemove] = lastRecipient;
         recipients.pop();
-        emit RecipientRemoved(recipientToRemove.id, recipientToRemove.name, recipientToRemove.age, recipientToRemove.locality, recipientToRemove.bloodType, recipientToRemove.organ, recipientToRemove.organSize, recipientToRemove.hospitalName);
+        emit RecipientRemoved(recipientToRemove.id, recipientToRemove.name, recipientToRemove.age, recipientToRemove.gender, recipientToRemove.locality, recipientToRemove.bloodType, recipientToRemove.organ, recipientToRemove.organSize, recipientToRemove.hospitalName);
     }
 
     function findRecipientIndexById(uint256 _id) internal view returns (uint256) {

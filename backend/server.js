@@ -66,12 +66,15 @@ app.post(`/register`,async (req,res)=>{
 const spawn = require("child_process").spawn;
 const windowsPath='D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\scripts\\Scripts\\python'
 const ubuntuPath='/home/wsdev88/t/final-org-app/backend/scripts/bin/python'
-app.post(`/receive/add`,async (req,res)=>{
+
+app.post(`/donate/add`,async (req,res)=>{
     try{
         let id=req.body.id
         let name=req.body.name
         let age=req.body.age
+        let gender=req.body.gender
         let locality=req.body.locality
+        let bloodtype=req.body.bloodtype
         let organ=req.body.organ
         let size=req.body.organSize
 
@@ -79,12 +82,47 @@ app.post(`/receive/add`,async (req,res)=>{
             'id':id,
             'name':name,
             'age':age,
+            'gender':gender,
             'locality':locality,
+            'bloodtype':bloodtype,
+            'tissuetyping':tissuetyping,
+            'organ':organ,
+            'size':size
+        }
+
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",bloodtype,tissuetyping,gender,age,size,'donor']);
+
+        return res.send("successfully processed by py script, and cluster identified")
+        
+    }catch(err){
+        console.log(err.toString())
+    }
+})
+
+app.post(`/receive/add`,async (req,res)=>{
+    try{
+        let id=req.body.id
+        let name=req.body.name
+        let age=req.body.age
+        let gender=req.body.gender
+        let locality=req.body.locality
+        let bloodtype=req.body.bloodtype
+        let organ=req.body.organ
+        let size=req.body.organSize
+
+        const recipient={
+            'id':id,
+            'name':name,
+            'age':age,
+            'gender':gender,
+            'locality':locality,
+            'bloodtype':bloodtype,
+            'tissuetyping':tissuetyping,
             'organ':organ,
             'size':size
         }
         //const matchJson= 
-        const pythonScript = spawn(windowsPath,["./scripts/classifier.py", size,age]);
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",bloodtype,tissuetyping,gender,age,size,'recipient']);
 
         //gets result json from python script
         const queryResultJson=JSON.parse(fs.readFileSync("./assets/match.json", 'utf8'));
@@ -117,3 +155,10 @@ app.get(`/receive/matches`, async (req,res)=>{
         console.log(typeof(db))
     }
 })
+
+/**
+ * TO DO
+ * FRONTEND: add drop down fields
+ * SMART CONTRACT: compile and deploy, replace ABI and contract address
+ * BACKDEND:check everything works
+ */

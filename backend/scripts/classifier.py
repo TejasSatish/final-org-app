@@ -61,9 +61,8 @@ def csv_to_json(csvFilePath):
     data
     return json.dumps(data, indent=4)
 
-# passes query point to model and saves match.json
-#server.js uses match.json to create results.json
-def findRecipientMatch(size,age):
+
+def findCluster(size,age):
     with open(windows['pickle'], "rb") as f:
         loadedKModel = pickle.load(f)
     data = {
@@ -77,11 +76,37 @@ def findRecipientMatch(size,age):
     queryDF = pd.DataFrame(data)
     query=loadedKModel.predict(queryDF[['Size','Age']])
 
+    return query
+
+def findDonorCluster(bloodtype,tissuetyping,gender,age,size):
+
+    cluster=findCluster(size,age)
+
+    csv_header=['BloodType','TissueTyping','Gender','Age','Size','cluster']
+    csv_data=[[bloodtype,tissuetyping,gender,age,size,cluster]]
+    filename = 'organ_bank_donor.csv'
+    with open(filename, 'w', newline="") as file:
+        csvwriter = csv.writer(file) # 2. create a csvwriter object
+        csvwriter.writerow(csv_header) # 4. write the header
+        csvwriter.writerows(csv_data) # 5. write the rest of the data
+
+ 
+
+# passes query point to model and saves match.json
+#server.js uses match.json to create results.json
+def findRecipientMatch(bloodtype,tissuetyping,gender,age,size):
+    
+    #find cluster of recipient
+    cluster=findCluster(size,age)
+
+    #get same cluster donors 
+    donor_csv=pd.read_csv('organ_bank_donor.csv')
     #sameCluster=dataset.loc[dataset['cluster']==query[0]]
     
     #bloodTypeMatch=sameCluster.loc[(dataset['BloodType']=='B-') | (dataset['BloodType']=='B+') | (dataset['BloodType']=='AB+')]
 
-    clusterMatch= dataset.loc[dataset['cluster']==query[0]]
+    clusterMatch= donor_csv.loc[donor_csv['cluster']==cluster[0]]
+
     clusterMatch.to_csv(windows['queryResult'])
     
     matchJson=csv_to_json(windows['queryResult'])
@@ -90,4 +115,9 @@ def findRecipientMatch(size,age):
         print(matchJson, file=outfile)
     
 
-findRecipientMatch(sys.argv[1],sys.argv[2])
+
+if(sys.argv[6] == 'recipient'):
+    findRecipientMatch(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])
+elif(sys.argv[6] == 'donor'):
+    findDonorCluster(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5])
+

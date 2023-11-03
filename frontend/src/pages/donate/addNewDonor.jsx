@@ -3,6 +3,7 @@ import { React, useState } from "react"
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { abi, hardhatContractAddress, sepoliaContractAddress } from "../../constants/constants"
 import { Card, Typography, Box, Grid, TextField, Button } from "@mui/material"
+import axios from "axios";
 
 const AddNewDonor=()=>{
 
@@ -53,12 +54,36 @@ const AddNewDonor=()=>{
         setDonorId(generateUniqueUint256());
     }
 
+    const handleSubmit=async (e)=>{
+      const donDetails={
+          id: donorId.toString(),
+          name: name,
+          age: age,
+          locality: locality,
+          bloodtype: bloodType,
+          organ: organ,
+          organSize: organSize,
+          hospitalName: hospital,
+      }
+      
+    axios.post("http://localhost:3001/receive/add",donDetails,{
+      'Content-Type': 'application/json'
+      }).then((response)=>{
+          const status=response.status
+          if(status===200){
+              console.log('sent success')
+          }
+          console.log(response.data);
+          
+      }) 
+    }
+
     async function createDonor(){
         changeDonorId();
 
         const response = await createNewDonor();
         
-        console.log(response)
+        handleSubmit();
         
     }
 
