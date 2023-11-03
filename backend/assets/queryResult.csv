@@ -1,5 +1,4 @@
 No,BloodType,TissueTyping,Age,Size,cluster
-181,AB+,"HLA-A3,B5",22,12.0,11
-215,AB+,"HLA-A3,B5",22,11.4,11
-292,AB-,"HLA-A3,B5",22,11.8,11
-328,A+,"HLA-A1,B8",22,11.7,11
+39,B-,"HLA-A2,B7",32,11.9,51
+171,A-,"HLA-A1,B8",32,11.9,51
+397,AB-,"HLA-A3,B5",32,12.0,51

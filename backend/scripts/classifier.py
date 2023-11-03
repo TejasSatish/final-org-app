@@ -32,10 +32,10 @@ ubuntu={
 }
 
 windows={
-    'pickle':'/home/wsdev88/t/final-org-app/backend/assets/model.pkl',
-    'dataset':'/home/wsdev88/t/final-org-app/backend/assets/gan_data.csv',
-    'queryResult':'/home/wsdev88/t/final-org-app/backend/assets/queryResult.csv',
-    'matchJson':'/home/wsdev88/t/final-org-app/backend/assets/match.json'
+    'pickle':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\model.pkl',
+    'dataset':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\gan_data.csv',
+    'queryResult':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\queryResult.csv',
+    'matchJson':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\match.json'
 }
 
 #converts a csv file to json
@@ -58,19 +58,20 @@ def csv_to_json(csvFilePath):
             data[key] = rows
 
     # function to dump data
+    data
     return json.dumps(data, indent=4)
 
 # passes query point to model and saves match.json
 #server.js uses match.json to create results.json
 def findRecipientMatch(size,age):
-    with open(ubuntu['pickle'], "rb") as f:
+    with open(windows['pickle'], "rb") as f:
         loadedKModel = pickle.load(f)
     data = {
     "Size": [size],
     "Age": [age]
     }
 
-    dataset=pd.read_csv(ubuntu['dataset'],index_col=0)
+    dataset=pd.read_csv(windows['dataset'],index_col=0)
 
     #load data into a DataFrame object:
     queryDF = pd.DataFrame(data)
@@ -81,11 +82,12 @@ def findRecipientMatch(size,age):
     #bloodTypeMatch=sameCluster.loc[(dataset['BloodType']=='B-') | (dataset['BloodType']=='B+') | (dataset['BloodType']=='AB+')]
 
     clusterMatch= dataset.loc[dataset['cluster']==query[0]]
-    clusterMatch.to_csv(ubuntu['queryResult'])
+    clusterMatch.to_csv(windows['queryResult'])
     
-    matchJson=csv_to_json(ubuntu['queryResult'])
-    with open(ubuntu['matchJson'], "w") as outfile:
-        outfile.write(matchJson)
+    matchJson=csv_to_json(windows['queryResult'])
+
+    with open(windows['matchJson'], "w") as outfile:
+        print(matchJson, file=outfile)
     
 
 findRecipientMatch(sys.argv[1],sys.argv[2])

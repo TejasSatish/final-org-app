@@ -84,15 +84,17 @@ app.post(`/receive/add`,async (req,res)=>{
             'size':size
         }
         //const matchJson= 
-        const pythonScript = spawn(ubuntuPath,["./scripts/classifier.py", size,age]);
-        //gets result json from python script
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py", size,age]);
 
-        
+        //gets result json from python script
         const queryResultJson=JSON.parse(fs.readFileSync("./assets/match.json", 'utf8'));
+        
+        recipient['matches']=queryResultJson
         // opens results.json and appends new recipient as key with results as value
         fs.readFile('./results.json', (err,data)=> {
             let json = JSON.parse(data)
-            json.table.push(JSON.stringify(recipient)+':'+JSON.stringify(queryResultJson))
+            
+            json.table.push(recipient)
 
             fs.writeFile("results.json", JSON.stringify(json),'utf8',()=>{})
         })

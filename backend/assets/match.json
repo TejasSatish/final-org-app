@@ -1,34 +1,26 @@
 {
-    "181": {
-        "No": "181",
-        "BloodType": "AB+",
-        "TissueTyping": "HLA-A3,B5",
-        "Age": "22",
-        "Size": "12.0",
-        "cluster": "11"
+    "39": {
+        "No": "39",
+        "BloodType": "B-",
+        "TissueTyping": "HLA-A2,B7",
+        "Age": "32",
+        "Size": "11.9",
+        "cluster": "51"
     },
-    "215": {
-        "No": "215",
-        "BloodType": "AB+",
-        "TissueTyping": "HLA-A3,B5",
-        "Age": "22",
-        "Size": "11.4",
-        "cluster": "11"
+    "171": {
+        "No": "171",
+        "BloodType": "A-",
+        "TissueTyping": "HLA-A1,B8",
+        "Age": "32",
+        "Size": "11.9",
+        "cluster": "51"
     },
-    "292": {
-        "No": "292",
+    "397": {
+        "No": "397",
         "BloodType": "AB-",
         "TissueTyping": "HLA-A3,B5",
-        "Age": "22",
-        "Size": "11.8",
-        "cluster": "11"
-    },
-    "328": {
-        "No": "328",
-        "BloodType": "A+",
-        "TissueTyping": "HLA-A1,B8",
-        "Age": "22",
-        "Size": "11.7",
-        "cluster": "11"
+        "Age": "32",
+        "Size": "12.0",
+        "cluster": "51"
     }
 }
