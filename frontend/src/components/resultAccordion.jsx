@@ -20,7 +20,7 @@ const ResultAccordion=(matchObject)=>{
                         <Typography>
                             {
                                 Object.entries(matchObject.matchObject.matches).map(([key,value])=>{
-                                    return <Donor key={key} name={value.name} age={value.Age} locality={value.locality} organ={value.organ} size={value.Size} />
+                                    return <Donor key={key} name={value.Name} age={value.Age} locality={value.Locality} organ={value.organ} size={value.Size} />
                                 })
                             }
                         </Typography>

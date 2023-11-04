@@ -2,15 +2,17 @@
 import { React, useState } from "react"
 import { useMoralis, useWeb3Contract } from "react-moralis"
 import { abi, hardhatContractAddress, sepoliaContractAddress } from "../../constants/constants"
-import { Card, Typography, Box, Grid, TextField, Button } from "@mui/material"
+import { Card, Typography, Box, Grid, TextField, Button, Select, MenuItem } from "@mui/material"
 import axios from "axios";
 
 const AddNewDonor=()=>{
 
     const [name,setName]= useState("")
     const [age,setAge]= useState("")
+    const [gender,setGender]= useState("")
     const [locality,setLocality]= useState("")
     const [bloodType,setBloodType]= useState("")
+    const [tissueType,setTissueType]= useState("")
     const [organ,setOrgan]= useState("")
     const [organSize,setOrganSize]= useState("")
     const [organLifetime,setOrganLifetime]= useState("")
@@ -20,16 +22,18 @@ const AddNewDonor=()=>{
     const [donorId,setDonorId]=useState(null);
     const storageAddress=sepoliaContractAddress
     //create donor contract
-    const {runContractFunction: createNewDonor}= useWeb3Contract({
-        abi:abi,
+    const {runContractFunction: createNewDonor,error}= useWeb3Contract({
+        abi: abi,
         contractAddress:storageAddress,
         functionName:"createNewDonor",
         params:{
             _id: donorId,
             _name: name,
             _age: age,
+            _gender: gender,
             _locality: locality,
             _bloodtype: bloodType,
+            _tissueType: tissueType,
             _organ: organ,
             _organSize: organSize,
             _organLife: organLifetime,
@@ -56,17 +60,20 @@ const AddNewDonor=()=>{
 
     const handleSubmit=async (e)=>{
       const donDetails={
-          id: donorId.toString(),
+          id: donorId?.toString(),
           name: name,
           age: age,
+          gender: gender,
           locality: locality,
           bloodtype: bloodType,
+          tissuetype: tissueType,
           organ: organ,
           organSize: organSize,
           hospitalName: hospital,
       }
+      console.log(donDetails)
       
-    axios.post("http://localhost:3001/receive/add",donDetails,{
+    axios.post("http://localhost:3001/donate/add",donDetails,{
       'Content-Type': 'application/json'
       }).then((response)=>{
           const status=response.status
@@ -79,10 +86,10 @@ const AddNewDonor=()=>{
     }
 
     async function createDonor(){
+      
         changeDonorId();
-
         const response = await createNewDonor();
-        
+        console.log(error)
         handleSubmit();
         
     }
@@ -90,7 +97,7 @@ const AddNewDonor=()=>{
     return(
     <div>
         <Card>
-        <Box sx={{ mt: 3 }}>
+          <Box sx={{ mt: 3 }}>
             <Grid container spacing={1}  sx={{ p: '1rem'}}>
                 <Grid item xs={12} sm={5}>
                     <TextField
@@ -109,11 +116,24 @@ const AddNewDonor=()=>{
                   onChange= {(e)=> setAge(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={1}>
+                
                 <TextField
                   required
                   fullWidth
-                  
+                  select
+                  value={gender}
+                  label="Gender"
+                  onChange= {(e)=> setGender(e.target.value)}
+                >
+                  <MenuItem value="M">Male</MenuItem>
+                  <MenuItem value="F">Female</MenuItem>
+                </TextField>
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <TextField
+                  required
+                  fullWidth
                   label="Locality"
                   autoFocus
                   onChange= {(e)=> setLocality(e.target.value)}
@@ -125,19 +145,46 @@ const AddNewDonor=()=>{
                 <TextField
                   required
                   fullWidth
-                  
+                  select
                   label="Blood type"
-                  
                   onChange= {(e)=> setBloodType(e.target.value)}
-                />
+                >
+                  <MenuItem value="A+">A+</MenuItem>
+                  <MenuItem value="A-">A-</MenuItem>
+                  <MenuItem value="B+">B+</MenuItem>
+                  <MenuItem value="B-">B-</MenuItem>
+                  <MenuItem value="AB+">AB+</MenuItem>
+                  <MenuItem value="AB-">AB-</MenuItem>
+                  <MenuItem value="O+">O+</MenuItem>
+                  <MenuItem value="O-">O-</MenuItem>
+                </TextField>
               </Grid>
               <Grid item xs={12} sm={2}>
                 <TextField
                   required
                   fullWidth
+                  select
+                  label="Tissue Type"
+                  onChange= {(e)=> setTissueType(e.target.value)}
+                >
+                  <MenuItem value="HLA-A2,B7">HLA-A2,B7</MenuItem>
+                  <MenuItem value="HLA-A4,B3">HLA-A4,B3</MenuItem>
+                  <MenuItem value="HLA-A1,B8">HLA-A1,B8</MenuItem>
+                  <MenuItem value="HLA-A3,B5">HLA-A3,B5</MenuItem>
+                </TextField>
+              </Grid>
+
+              <Grid item xs={12} sm={2}>
+                <TextField
+                  required
+                  fullWidth
+                  select
                   label="Organ"
                   onChange= {(e)=> setOrgan(e.target.value)}
-                />
+                >
+                  <MenuItem value="kidney">Kidney</MenuItem>
+                  <MenuItem value="liver">Liver</MenuItem>
+                </TextField>
               </Grid>
               <Grid item xs={12} sm={2}>
                 <TextField

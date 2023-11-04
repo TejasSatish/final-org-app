@@ -1,4 +1,7 @@
 const {ethers, run, network}=require("hardhat");
+const fs = require('fs');
+var path = require("path");
+
 
 async function main(){
   const SimpleStorageFactory = await ethers.getContractFactory("SimpleStorage");
@@ -11,6 +14,12 @@ async function main(){
     await verify(simpleStorage.address,[]);
   }
 
+  const SSJson=JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'artifacts', 'contracts','SimpleStorage.sol','SimpleStorage.json'), 'utf8'));
+  const abi={
+    "abi" : SSJson.abi
+  }
+  
+  fs.writeFileSync(path.join(__dirname, '..','..', 'frontend', 'src','constants','abi.json'), JSON.stringify(abi),'utf8',()=>{})
   // const donors= await simpleStorage.retrieveDonors();
   // const recipients= await simpleStorage.retrieveRecipients();
   // console.log(`Donor list: ${donors}`);

@@ -75,22 +75,23 @@ app.post(`/donate/add`,async (req,res)=>{
         let gender=req.body.gender
         let locality=req.body.locality
         let bloodtype=req.body.bloodtype
+        let tissuetype=req.body.tissuetype
         let organ=req.body.organ
         let size=req.body.organSize
 
-        const recipient={
+        const donor={
             'id':id,
             'name':name,
             'age':age,
             'gender':gender,
             'locality':locality,
             'bloodtype':bloodtype,
-            'tissuetyping':tissuetyping,
+            'tissuetyping':tissuetype,
             'organ':organ,
             'size':size
         }
 
-        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",bloodtype,tissuetyping,gender,age,size,'donor']);
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,locality,bloodtype,tissuetype,gender,age,size,'donor']);
 
         return res.send("successfully processed by py script, and cluster identified")
         
@@ -107,6 +108,7 @@ app.post(`/receive/add`,async (req,res)=>{
         let gender=req.body.gender
         let locality=req.body.locality
         let bloodtype=req.body.bloodtype
+        let tissuetyping=req.body.tissuetyping
         let organ=req.body.organ
         let size=req.body.organSize
 
@@ -122,7 +124,7 @@ app.post(`/receive/add`,async (req,res)=>{
             'size':size
         }
         //const matchJson= 
-        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",bloodtype,tissuetyping,gender,age,size,'recipient']);
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,locality,bloodtype,tissuetyping,gender,age,size,'recipient']);
 
         //gets result json from python script
         const queryResultJson=JSON.parse(fs.readFileSync("./assets/match.json", 'utf8'));
