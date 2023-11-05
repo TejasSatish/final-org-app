@@ -1,2 +1,1 @@
-Id,Name,Locality,BloodType,TissueTyping,Gender,Age,Size,cluster
-77167493561868179294186897081703435012307758396581934669801320694194848045793,Tejas,Thiruvanmiyur,B+,"HLA-A2,B7",M,22,10.5,48
+Id,Name,Organ,Locality,BloodType,TissueTyping,Gender,Age,Size,cluster

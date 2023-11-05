@@ -17,10 +17,6 @@ const Donate=()=>{
       
     return (
         <Grid container style={{ position: "relative", top: "120px"}} direction="row" justifyContent="flex-end" alignItems="center">
-            <Grid item xs={12} sm={2}>
-                <Sidebar tabList={ donateSidebarList }/>
-            </Grid>
-
             <Grid item xs={12}sm={9}>
                 <Outlet/> 
             </Grid>

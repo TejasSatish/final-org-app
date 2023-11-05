@@ -23,7 +23,7 @@ const AddNewRecipient=()=>{
     const storageAddress=sepoliaContractAddress
 
     //create recipient contract
-    const {runContractFunction: createNewRecipient}= useWeb3Contract({
+    const {runContractFunction: createNewRecipient,err}= useWeb3Contract({
         abi: abi,
         contractAddress:storageAddress,
         functionName:"createNewRecipient",
@@ -62,7 +62,7 @@ const AddNewRecipient=()=>{
 
     const handleSubmit=async (e)=>{
         const recipDetails={
-            id: recipientId?.toString(),
+            id: recipientId.toString(),
             name: name,
             age: age,
             gender: gender,
@@ -88,9 +88,9 @@ const AddNewRecipient=()=>{
 
     async function createRecipient(){
         changeRecipientId();
-
+        
         const response = await createNewRecipient();   
-
+        console.log(err)
         handleSubmit();
     }
 
@@ -133,6 +133,7 @@ const AddNewRecipient=()=>{
                   required
                   fullWidth
                   select
+                  value={gender}
                   label="Gender"
                   onChange= {(e)=> setGender(e.target.value)}
                 >
@@ -155,6 +156,7 @@ const AddNewRecipient=()=>{
                   required
                   fullWidth
                   select
+                  value={bloodType}
                   label="Blood type"
                   onChange= {(e)=> setBloodType(e.target.value)}
                 >
@@ -173,6 +175,7 @@ const AddNewRecipient=()=>{
                   required
                   fullWidth
                   select
+                  value={tissueType}
                   label="Tissue Type"
                   onChange= {(e)=> setTissueType(e.target.value)}
                 >
@@ -187,6 +190,7 @@ const AddNewRecipient=()=>{
                   required
                   fullWidth
                   select
+                  value={organ}
                   label="Organ"
                   onChange= {(e)=> setOrgan(e.target.value)}
                 >

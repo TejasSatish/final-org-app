@@ -34,7 +34,7 @@ const Login=()=>{
           console.log(`${response.data.organisationName}`);
           if(status==200){
               window.localStorage.setItem("organisation",`${response.data.organisationName}`);
-              window.location="/donate"
+              window.location="/donate/add"
           }
       })
       setUserDetails({

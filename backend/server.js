@@ -86,14 +86,19 @@ app.post(`/donate/add`,async (req,res)=>{
             'gender':gender,
             'locality':locality,
             'bloodtype':bloodtype,
-            'tissuetyping':tissuetype,
+            'tissuetype':tissuetype,
             'organ':organ,
             'size':size
         }
-
-        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,locality,bloodtype,tissuetype,gender,age,size,'donor']);
-
-        return res.send("successfully processed by py script, and cluster identified")
+        //const matchJson= 
+        
+        //const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"recipient"]);
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"donor"]);
+        pythonScript.stdout.on('data', (data) => {
+            console.log(data.toString());
+        });
+        
+        return res.send("successfully processed by script, and cluster identified")
         
     }catch(err){
         console.log(err.toString())
@@ -108,7 +113,7 @@ app.post(`/receive/add`,async (req,res)=>{
         let gender=req.body.gender
         let locality=req.body.locality
         let bloodtype=req.body.bloodtype
-        let tissuetyping=req.body.tissuetyping
+        let tissuetype=req.body.tissuetype
         let organ=req.body.organ
         let size=req.body.organSize
 
@@ -119,13 +124,13 @@ app.post(`/receive/add`,async (req,res)=>{
             'gender':gender,
             'locality':locality,
             'bloodtype':bloodtype,
-            'tissuetyping':tissuetyping,
+            'tissuetype':tissuetype,
             'organ':organ,
             'size':size
         }
         //const matchJson= 
-        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,locality,bloodtype,tissuetyping,gender,age,size,'recipient']);
-
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"recipient"]);
+        
         //gets result json from python script
         const queryResultJson=JSON.parse(fs.readFileSync("./assets/match.json", 'utf8'));
         

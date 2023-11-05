@@ -3,7 +3,7 @@ import { AppBar, Box, Grid, Toolbar, Typography, Tab, Tabs, Button} from "@mui/m
 import { Link, useLocation } from "react-router-dom";
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import { useMoralis} from "react-moralis"
-const Navbar=()=>{
+const Appbar=()=>{
     const [value, setValue]= useState()
     const location = useLocation();
 
@@ -40,21 +40,12 @@ const Navbar=()=>{
                 <Grid sx={{placeItems:"center"}} container>
                     <Grid item xs={3}>
                         <Box display="flex">
-                            <LocalHospitalIcon/>
-                            <Typography xs={1}>{window.localStorage.getItem("organisation")}</Typography>
+                            <LocalHospitalIcon fontSize="large"/>
+                            <Typography variant="h4">{window.localStorage.getItem("organisation")}</Typography>
                         </Box>    
                     </Grid>
                     <Grid item xs={5}>
-                        <Tabs
-                         indicatorColor="secondary"
-                         textColor="inherit" 
-                         value={value} 
-                         onChange={(e,val)=> setValue(val)}
-                         >
-                            <Tab label="Donate" to='/donate' component={Link}/>
-                            <Tab label="Receive" to='/receive' component={Link}/>
-                            <Tab label="Dashboard" to='/dashboard' component={Link}/>
-                        </Tabs>
+                        <Typography variant="h4"></Typography>
                     </Grid>
                     <Grid item xs={1}>
 
@@ -84,4 +75,4 @@ const Navbar=()=>{
     );
 }
 
-export default Navbar;
+export default Appbar;
