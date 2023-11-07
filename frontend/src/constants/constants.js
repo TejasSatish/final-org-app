@@ -1,5 +1,6 @@
 export const hardhatContractAddress="0x5FbDB2315678afecb367f032d93F642f64180aa3"
 export const sepoliaContractAddress="0xa317a34dD95e37D3e0a3dB48cBA52f4F86a041E6"
+// new blank 0xf6faC38a82798FbB29aD9221e73De0361e97860a
 export const abi= [
     {
       "anonymous": false,

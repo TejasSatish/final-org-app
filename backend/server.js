@@ -93,7 +93,7 @@ app.post(`/donate/add`,async (req,res)=>{
         //const matchJson= 
         
         //const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"recipient"]);
-        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"donor"]);
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"donor"],{cwd: __dirname});
         pythonScript.stdout.on('data', (data) => {
             console.log(data.toString());
         });
@@ -129,7 +129,7 @@ app.post(`/receive/add`,async (req,res)=>{
             'size':size
         }
         //const matchJson= 
-        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"recipient"]);
+        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"recipient"],{cwd: __dirname});
         
         //gets result json from python script
         const queryResultJson=JSON.parse(fs.readFileSync("./assets/match.json", 'utf8'));

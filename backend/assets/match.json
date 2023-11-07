@@ -1,3 +1,14 @@
 {
-    
+    "341232132133": {
+        "Id": "341232132133",
+        "Name": "tejas",
+        "Organ": "liver",
+        "Locality": "navalur",
+        "BloodType": "A-",
+        "TissueTyping": "HLA-A2,B7",
+        "Gender": "M",
+        "Age": "23",
+        "Size": "12.1",
+        "cluster": "43"
+    }
 }

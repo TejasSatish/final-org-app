@@ -13,6 +13,7 @@ import pickle
 import os
 import json
 import csv
+from pathlib import Path
 
 # print('Hello World')
 
@@ -21,31 +22,34 @@ import csv
 
 # loadedKModel.predict([[45,10.7]])
 
-# ubuntu={
-#     'pickle':'/home/wsdev88/t/final-org-app/backend/assets/model.pkl',
-#     'dataset':'/home/wsdev88/t/final-org-app/backend/assets/gan_data.csv',
-#     'queryResult':'/home/wsdev88/t/final-org-app/backend/assets/queryResult.csv',
-#     'matchJson':'/home/wsdev88/t/final-org-app/backend/assets/match.json'
-# }
-
 myPaths={
-    'kidney_pickle':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\kidney_model.pkl',
-    'liver_pickle':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\liver_model.pkl',
-    'kidney_dataset':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\kidney-tabular-actgan.csv',
-    'liver_dataset':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\liver-tabular-actgan.csv',
-    'queryResult':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\queryResult.csv',
-    'matchJson':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\match.json',
-    'donor_data':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\organ_bank_donor.csv'
+    'kidney_pickle':'/home/ubuntu/final-org-app/backend/assets/kidney_model.pkl',
+    'liver_pickle':'/home/ubuntu/final-org-app/backend/assets/liver_model.pkl',
+    'kidney_dataset':'/home/ubuntu/final-org-app/backend/assets/kidney-tabular-actgan.csv',
+    'liver_dataset':'/home/ubuntu/final-org-app/backend/assets/liver-tabular-actgan.csv',
+    'queryResult':'/home/ubuntu/final-org-app/backend/assets/queryResult.csv',
+    'matchJson':'/home/ubuntu/final-org-app/backend/assets/match.json',
+    'donor_data':'/home/ubuntufinal-org-app/backend/assets/organ_bank_donor.csv'
 }
 
 # myPaths={
-#     'kidney_pickle':os.path.join(os.path.curdir,'..','assets','kidney_model.pkl'),
-#     'liver_pickle':os.path.join(os.path.curdir,'..','assets','liver_model.pkl'),
-#     'kidney_dataset':os.path.join(os.path.curdir,'..','assets','kidney-tabular-actgan.csv'),
-#     'liver_dataset':os.path.join(os.path.curdir,'..','assets','liver-tabular-actgan.csv'),
-#     'queryResult':os.path.join(os.path.curdir,'..','assets','queryResult.csv'),
-#     'matchJson':os.path.join(os.path.curdir,'..','assets','match.json'),
-#     'donor_data':os.path.join(os.path.curdir,'..','assets','organ_bank_donor.csv')
+#     'kidney_pickle':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\kidney_model.pkl',
+#     'liver_pickle':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\liver_model.pkl',
+#     'kidney_dataset':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\kidney-tabular-actgan.csv',
+#     'liver_dataset':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\liver-tabular-actgan.csv',
+#     'queryResult':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\queryResult.csv',
+#     'matchJson':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\match.json',
+#     'donor_data':'D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\assets\\organ_bank_donor.csv'
+# }
+
+# myPaths={
+#     'kidney_pickle':os.path.abspath(os.path.join('..','assets','kidney_model.pkl')),
+#     'liver_pickle':os.path.abspath(os.path.join('..','assets','liver_model.pkl')),
+#     'kidney_dataset':os.path.abspath(os.path.join('..','assets','kidney-tabular-actgan.csv')),
+#     'liver_dataset':os.path.abspath(os.path.join('..','assets','liver-tabular-actgan.csv')),
+#     'queryResult':os.path.abspath(os.path.join('..','assets','queryResult.csv')),
+#     'matchJson':os.path.abspath(os.path.join('..','assets','match.json')),
+#     'donor_data':os.path.abspath(os.path.join('..','assets','organ_bank_donor.csv'))
 # }
 
 #converts a csv file to json
@@ -71,13 +75,16 @@ def csv_to_json(csvFilePath):
 
 
 def findCluster(size,age,organ):
-    
+    print('find cluster 1')
     if organ == 'kidney':
+        print('find cluster kidney')
         with open(myPaths['kidney_pickle'], "rb") as f:
             loadedKModel = pickle.load(f)
         dataset=pd.read_csv(myPaths['kidney_dataset'],index_col=0)
     elif organ=='liver':
-        with open(myPaths['kidney_pickle'], "rb") as f:
+        print('find cluster liver')
+        with open(myPaths['liver_pickle'], "rb") as f:
+            print('find cluster load liver pickle')
             loadedKModel = pickle.load(f)
         dataset=pd.read_csv(myPaths['liver_dataset'],index_col=0)
     data = {
@@ -113,10 +120,10 @@ def findDonorCluster(id,name,organ,locality,bloodtype,tissuetype,gender,age,size
 # passes query point to model and saves match.json
 #server.js uses match.json to create results.json
 def findRecipientMatch(id,name,organ,locality,bloodtype,tissuetyping,gender,age,size):
-    
+    print('in re ci match 1')
     #find cluster of recipient
     cluster=findCluster(size,age,organ)
-
+    print('found cluster')
     #get same cluster donors 
     donor_csv=pd.read_csv(myPaths['donor_data'],index_col=0)
     #sameCluster=dataset.loc[dataset['cluster']==query[0]]
@@ -132,9 +139,12 @@ def findRecipientMatch(id,name,organ,locality,bloodtype,tissuetyping,gender,age,
     
 
 print('py script called')
+
 if(sys.argv[10] == 'recipient'):
+    print('re ci')
     findRecipientMatch(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],sys.argv[7],sys.argv[8],sys.argv[9])
 elif(sys.argv[10] == 'donor'):
+    print('do no')
     findDonorCluster(sys.argv[1],sys.argv[2],sys.argv[3],sys.argv[4],sys.argv[5],sys.argv[6],sys.argv[7],sys.argv[8],sys.argv[9])
 print('script exec over')
 sys.stdout.flush()
