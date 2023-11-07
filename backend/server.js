@@ -6,9 +6,13 @@ const mongoose = require(`mongoose`)
 var ObjId = require('mongoose').mongo.BSON.ObjectId;
 const User = require('./userModel.js');
 const app = express()
+const path= require('path');
+const { error } = require('console');
 
 app.use(cors())
 app.use(express.json())
+
+app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 const port =3001
 
 mongoose.connect(process.env.MONGODB_ACCESS_URL,{useNewUrlParser: true, useUnifiedTopology: true})
@@ -20,6 +24,18 @@ mongoose.connect(process.env.MONGODB_ACCESS_URL,{useNewUrlParser: true, useUnifi
 })
 .catch((e)=>{
     console.error(e)
+})
+
+app.get("/*",(req,res)=>{
+    
+    res.sendFile(
+        path.resolve(__dirname,'../frontend/build/index.html'),
+        function (err){
+            if(err){
+                res.status(500).send(err)
+            }
+        }
+    )
 })
 
 
