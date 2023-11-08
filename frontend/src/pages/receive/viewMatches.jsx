@@ -6,7 +6,7 @@ import ResultAccordion from "../../components/resultAccordion";
 const ViewMatches=()=>{
     const [results,setResults]=useState([])
     useEffect(()=>{
-        axios.get("http://172.31.14.125:3001/receive/matches")
+        axios.get("http://3.7.66.31:3001/receive/matches")
         .then((res)=>{
             setResults(res.data)
             console.log(res.data)
