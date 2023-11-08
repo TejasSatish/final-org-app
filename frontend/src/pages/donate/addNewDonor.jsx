@@ -73,7 +73,7 @@ const AddNewDonor=()=>{
       }
       console.log(donDetails)
       
-      axios.post("http://localhost:3001/donate/add",donDetails,{
+      axios.post("http://3.7.66.31:3001/donate/add",donDetails,{
         'Content-Type': 'application/json'
         }).then((response)=>{
             const status=response.status
