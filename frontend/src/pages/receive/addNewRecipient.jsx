@@ -74,7 +74,7 @@ const AddNewRecipient=()=>{
             hospitalName: hospital,
         }
         
-        axios.post("http://localhost:3001/receive/add",recipDetails,{
+        axios.post("http://172.31.14.125:3001/receive/add",recipDetails,{
         'Content-Type': 'application/json'
         }).then((response)=>{
             const status=response.status

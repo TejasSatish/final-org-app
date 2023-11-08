@@ -26,7 +26,7 @@ const Login=()=>{
           username:userDetails.username,
           password:userDetails.password,
       }
-      await axios.post("http://localhost:3001/login",loginDetails,{
+      await axios.post("http://172.31.14.125:3001/login",loginDetails,{
       'Content-type': 'application/json'
       }).then((response)=>{
           const status=response.status;
