@@ -82,6 +82,7 @@ app.post(`/register`,async (req,res)=>{
 const spawn = require("child_process").spawn;
 const windowsPath='D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\scripts\\Scripts\\python'
 const ubuntuPath='/home/wsdev88/t/final-org-app/backend/scripts/bin/python'
+const deployPath='/home/ubuntu/final-org-app/backend/scripts/bin/python'
 
 app.post(`/donate/add`,async (req,res)=>{
     try{
