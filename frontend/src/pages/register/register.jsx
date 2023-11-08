@@ -24,7 +24,7 @@ const Register=()=>{
             password:userDetails.password,
         }
         
-        axios.post("http://3.7.66.31:3001/register",loginDetails,{
+        axios.post("http://localhost:3001/register",loginDetails,{
         'Content-Type': 'application/json'
         }).then((response)=>{
             const status=response.status
