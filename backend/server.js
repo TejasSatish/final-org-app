@@ -110,7 +110,7 @@ app.post(`/donate/add`,async (req,res)=>{
         //const matchJson= 
         
         //const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"recipient"]);
-        const pythonScript = spawn(windowsPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"donor"],{cwd: __dirname});
+        const pythonScript = spawn(deployPath,["./scripts/classifier.py",id,name,organ,locality,bloodtype,tissuetype,gender,age,size,"donor"],{cwd: __dirname});
         pythonScript.stdout.on('data', (data) => {
             console.log(data.toString());
         });
