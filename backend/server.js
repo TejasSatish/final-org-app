@@ -8,11 +8,14 @@ const User = require('./userModel.js');
 const app = express()
 const path= require('path');
 const { error } = require('console');
+const tools=require(`./connector.js`);
 
 app.use(cors())
 app.use(express.json())
 
-app.use(express.static(path.resolve(__dirname, '../frontend/build')));
+//uncomment line 17 & line 31 - 41  to serve via build folder
+
+// app.use(express.static(path.resolve(__dirname, '../frontend/build')));
 const port =3001
 
 mongoose.connect(process.env.MONGODB_ACCESS_URL,{useNewUrlParser: true, useUnifiedTopology: true})
@@ -26,17 +29,17 @@ mongoose.connect(process.env.MONGODB_ACCESS_URL,{useNewUrlParser: true, useUnifi
     console.error(e)
 })
 
-app.get("/*",(req,res)=>{
+// app.get("/*",(req,res)=>{
     
-    res.sendFile(
-        path.resolve(__dirname,'../frontend/build/index.html'),
-        function (err){
-            if(err){
-                res.status(500).send(err)
-            }
-        }
-    )
-})
+//     res.sendFile(
+//         path.resolve(__dirname,'../frontend/build/index.html'),
+//         function (err){
+//             if(err){
+//                 res.status(500).send(err)
+//             }
+//         }
+//     )
+// })
 
 
 app.post(`/login`,async (req,res)=>{
@@ -78,6 +81,14 @@ app.post(`/register`,async (req,res)=>{
     }
 })
 
+app.post(`/deleteall`,async (req,res)=>{
+    try{
+        var response=await tools.deleteAllData
+    }catch(err){
+        console.log(err)
+    }
+})
+
 
 const spawn = require("child_process").spawn;
 const windowsPath='D:\\Tejas\\SEM7\\final-year-project\\final-org-app\\backend\\scripts\\Scripts\\python'
@@ -114,6 +125,8 @@ app.post(`/donate/add`,async (req,res)=>{
             console.log(data.toString());
         });
         
+        //tools.removeRecipient()
+        //tools.removeDonor()
         return res.send("successfully processed by script, and cluster identified")
         
     }catch(err){
